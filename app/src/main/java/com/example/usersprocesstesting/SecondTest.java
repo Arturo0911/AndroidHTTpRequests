@@ -32,8 +32,12 @@ public class SecondTest extends AppCompatActivity {
         buttonClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                * The number of the port in a String url for example, must be a integer
+                * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
+                * */
                 RequestQueue requestQueue = Volley.newRequestQueue(SecondTest.this);
-                String URL = "192.168.100.255:5000/api";
+                String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
 
                 /**
                  * Creates a new request.
@@ -53,7 +57,7 @@ public class SecondTest extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.e("Rest response", response.toString());
-                                Toast.makeText(SecondTest.this, "Rest response: "+response.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SecondTest.this, "Rest response: "+response.names().toString(), Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
