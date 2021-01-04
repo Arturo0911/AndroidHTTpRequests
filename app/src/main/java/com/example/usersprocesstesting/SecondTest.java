@@ -29,6 +29,14 @@ public class SecondTest extends AppCompatActivity {
     private TextView lnameText;
     private TextView cedulaText;
 
+    /**
+     * GET method
+     * To focus the localhost site from the our serve
+     * The number of the port in a String url for example, must be a integer
+     * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
+     * */
+    private static final String urlRequest = "http://" + "10.0.2.2"+":"+5000+"/api";
+
 
 
     public void onButtonClick(View view){
@@ -36,56 +44,9 @@ public class SecondTest extends AppCompatActivity {
         nameText = (TextView) findViewById(R.id.nameText);
         lnameText = (TextView) findViewById(R.id.lnameText);
         cedulaText = (TextView) findViewById(R.id.cedulaText);
-        /**
-         * GET method
-         * To focus the localhost site from the our serve
-         * The number of the port in a String url for example, must be a integer
-         * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
-         * */
-        RequestQueue requestQueue = Volley.newRequestQueue(SecondTest.this);
-        String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
 
-        /**
-         * Creates a new request.
-         *
-         * @param method the HTTP method to use
-         * @param url URL to fetch the JSON from
-         * @param jsonRequest A {@link JSONObject} to post with the request. Null indicates no
-         *     parameters will be posted along with request.
-         * @param listener Listener to receive the JSON response
-         * @param errorListener Error listener, or null to ignore errors.
-         */
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("Rest response", response.toString());
+        HttpRequestGET(nameText, cedulaText,lnameText, urlRequest);
 
-                        try {
-                            cedulaText.setText(response.get("Id").toString());
-                            lnameText.setText(response.get("Lname").toString());
-                            nameText.setText(response.get("Name").toString());
-                            /*for (Iterator<String> it = response.keys(); it.hasNext();){
-                                String jsons = it.next();
-                                nameText.setText();
-                            }*/
-                        }catch (Exception e){
-                            Toast.makeText(SecondTest.this, "Rest response: "+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest response", error.toString());
-                        Toast.makeText(SecondTest.this, "Rest response: "+error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-        requestQueue.add(objectRequest);
     }
 
 
@@ -100,4 +61,56 @@ public class SecondTest extends AppCompatActivity {
 
 
     }
+
+
+    /** GET method */
+    public void HttpRequestGET(TextView name, TextView ced, TextView lastname,String url){
+
+        /**
+         * Creates a new request.
+         *
+         * @param method the HTTP method to use
+         * @param url URL to fetch the JSON from
+         * @param jsonRequest A {@link JSONObject} to post with the request. Null indicates no
+         *     parameters will be posted along with request.
+         * @param listener Listener to receive the JSON response
+         * @param errorListener Error listener, or null to ignore errors.
+         */
+        RequestQueue requestQueue = Volley.newRequestQueue(SecondTest.this);
+
+        JsonObjectRequest jsonObject = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /**
+                         * If it's successfull
+                         */
+                        try {
+                            name.setText(response.get("Name").toString());
+                            lastname.setText(response.get("Lname").toString());
+                            ced.setText(response.get("Id").toString());
+                        }catch (Exception e){
+                            Toast.makeText(SecondTest.this, "Error occurs when the value is trying to connect with the server", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                /**
+                 * If error occurs
+                 */
+
+                Toast.makeText(SecondTest.this, "Error by: "+ error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonObject);
+
+    }
+
+    /**POST method*/
 }
