@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,59 +20,83 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.Iterator;
+
 public class SecondTest extends AppCompatActivity {
 
-    private Button buttonClick;
+    //private Button buttonClick;
+    private TextView nameText;
+    private TextView lnameText;
+    private TextView cedulaText;
+
+
+
+    public void onButtonClick(View view){
+
+        nameText = (TextView) findViewById(R.id.nameText);
+        lnameText = (TextView) findViewById(R.id.lnameText);
+        cedulaText = (TextView) findViewById(R.id.cedulaText);
+        /**
+         * GET method
+         * To focus the localhost site from the our serve
+         * The number of the port in a String url for example, must be a integer
+         * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
+         * */
+        RequestQueue requestQueue = Volley.newRequestQueue(SecondTest.this);
+        String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
+
+        /**
+         * Creates a new request.
+         *
+         * @param method the HTTP method to use
+         * @param url URL to fetch the JSON from
+         * @param jsonRequest A {@link JSONObject} to post with the request. Null indicates no
+         *     parameters will be posted along with request.
+         * @param listener Listener to receive the JSON response
+         * @param errorListener Error listener, or null to ignore errors.
+         */
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest response", response.toString());
+
+                        try {
+                            cedulaText.setText(response.get("Id").toString());
+                            lnameText.setText(response.get("Lname").toString());
+                            nameText.setText(response.get("Name").toString());
+                            /*for (Iterator<String> it = response.keys(); it.hasNext();){
+                                String jsons = it.next();
+                                nameText.setText();
+                            }*/
+                        }catch (Exception e){
+                            Toast.makeText(SecondTest.this, "Rest response: "+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest response", error.toString());
+                        Toast.makeText(SecondTest.this, "Rest response: "+error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+    }
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_test);
 
-        buttonClick = findViewById(R.id.buttonClick);
-
-        buttonClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                * The number of the port in a String url for example, must be a integer
-                * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
-                * */
-                RequestQueue requestQueue = Volley.newRequestQueue(SecondTest.this);
-                String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
-
-                /**
-                 * Creates a new request.
-                 *
-                 * @param method the HTTP method to use
-                 * @param url URL to fetch the JSON from
-                 * @param jsonRequest A {@link JSONObject} to post with the request. Null indicates no
-                 *     parameters will be posted along with request.
-                 * @param listener Listener to receive the JSON response
-                 * @param errorListener Error listener, or null to ignore errors.
-                 */
-                JsonObjectRequest objectRequest = new JsonObjectRequest(
-                        Request.Method.GET,
-                        URL,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.e("Rest response", response.toString());
-                                Toast.makeText(SecondTest.this, "Rest response: "+response.names().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("Rest response", error.toString());
-                                Toast.makeText(SecondTest.this, "Rest response: "+error.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                );
-                requestQueue.add(objectRequest);
-            }
-        });
 
 
     }
