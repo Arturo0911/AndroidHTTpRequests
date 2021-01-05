@@ -6,95 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/MainLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="186dp"
-        tools:layout_editor_absoluteY="245dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Users interaction"
-            android:layout_marginStart="45dp"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            >
-
-        </TextView>
-        <TextView
-            android:id="@+id/texto"
-            android:layout_width="120dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="45dp"
-            android:textColorHint="@color/black"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            >
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/myText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical"
-            >
-            <!--<EditText
-                android:layout_width="300dp"
-                android:id="@+id/identification"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="60dp"
-                android:hint="put your identification number"
-                android:layout_height="wrap_content">
-            </EditText>
-            <EditText
-                android:layout_width="300dp"
-                android:id="@+id/username"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="60dp"
-                android:hint="Put your username"
-                android:layout_height="wrap_content">
-            </EditText>
-            <EditText
-                android:layout_width="300dp"
-                android:id="@+id/name"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="60dp"
-                android:hint="put your name"
-                android:layout_height="wrap_content">
-            </EditText>
-            <EditText
-                android:layout_width="300dp"
-                android:id="@+id/password"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="60dp"
-                android:hint="put your password"
-                android:layout_height="wrap_content">
-            </EditText>-->
-
-            <Button
-                android:id="@+id/buttonSendData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginTop="25dp"
-                android:text="send"
-                android:textStyle="bold">
-
-            </Button>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="239dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="324dp"
+        android:text="Post sgnup"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

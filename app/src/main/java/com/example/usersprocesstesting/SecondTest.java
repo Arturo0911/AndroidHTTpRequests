@@ -1,8 +1,11 @@
 package com.example.usersprocesstesting;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.VoiceInteractor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +28,7 @@ import java.util.Iterator;
 public class SecondTest extends AppCompatActivity {
 
     //private Button buttonClick;
+    ActionBar actionBar;
     private TextView nameText;
     private TextView lnameText;
     private TextView cedulaText;
@@ -36,6 +40,7 @@ public class SecondTest extends AppCompatActivity {
      * like this: String URL = "http://" + "10.0.2.2" + ":" + 5000 + "/api";
      * */
     private static final String urlRequest = "http://" + "10.0.2.2"+":"+5000+"/api";
+    private static final String postRquest = "http://" + "10.0.2.2"+":"+5000+"/android";
 
 
 
@@ -50,15 +55,13 @@ public class SecondTest extends AppCompatActivity {
     }
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_test);
-
-
+        actionBar  = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#273036")));
+        actionBar.setTitle("Pandas solution");
 
     }
 
